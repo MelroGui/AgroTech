@@ -26,10 +26,11 @@ model Usuarios {
 }
 
 model Frota {
-  id_frota   Int          @id @default(autoincrement())
+  id_frota   Int   @id @default(autoincrement())
   manutencao Manutencao[]
   operacoes  Operacoes[]
   motoristas Motoristas[]
+  veiculos Veiculos[]
 }
 
 model Manutencao {
@@ -47,6 +48,13 @@ model Operacoes {
 model Motoristas {
   id_motor   Int    @id @default(autoincrement())
   nome_motor String
+  id_frota   Int
+  frota      Frota  @relation(fields: [id_frota], references: [id_frota])
+}
+
+model Veiculos {
+  id_veiculos Int @id @default(autoincrement())
+  nome_veiculos String
   id_frota   Int
   frota      Frota  @relation(fields: [id_frota], references: [id_frota])
 }
