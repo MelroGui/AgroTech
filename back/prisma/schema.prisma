@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cargos {
+  id_cargo   Int        @id @default(autoincrement())
+  nome_cargo String
+  usuarios   Usuarios[]
+}
+
+model Usuarios {
+  id_user  Int    @id @default(autoincrement())
+  nome     String
+  email    String
+  senha    String
+  id_cargo Int
+  cargos   Cargos @relation(fields: [id_cargo], references: [id_cargo])
+}
+
+model Frota {
+  id_frota   Int          @id @default(autoincrement())
+  manutencao Manutencao[]
+  operacoes  Operacoes[]
+  motoristas Motoristas[]
+}
+
+model Manutencao {
+  id_manu  Int   @id @default(autoincrement())
+  id_frota Int
+  frota    Frota @relation(fields: [id_frota], references: [id_frota])
+}
+
+model Operacoes {
+  id_opera Int   @id @default(autoincrement())
+  id_frota Int
+  frota    Frota @relation(fields: [id_frota], references: [id_frota])
+}
+
+model Motoristas {
+  id_motor   Int    @id @default(autoincrement())
+  nome_motor String
+  id_frota   Int
+  frota      Frota  @relation(fields: [id_frota], references: [id_frota])
+}
