@@ -7,30 +7,30 @@ const test = async (req, res) => {
 }
 
 const create = async (req, res) => {
-    const cargo = await prisma.cargo.create({
+    const veiculo = await prisma.veiculo.create({
         data: req.body
     })
     res.status(201).end();
 }
 
 const readAll = async (req, res) => {
-    const cargo = await prisma.cargo.findMany({
+    const veiculo = await prisma.veiculo.findMany({
     })
-    res.json(cargo).end();
+    res.json(veiculo).end();
 }
 
 const update = async (req, res) => {
-    const cargo = await prisma.cargo.update({
+    const veiculo = await prisma.veiculo.update({
         where: {
             id: Number(req.params.id)
         },
         data: req.body
     })
-    res.status(202).json(cargo).end();
+    res.status(202).json(veiculo).end();
 }
 
 const del = async (req, res) => {
-    const cargo = await prisma.cargo.delete({
+    const veiculo = await prisma.veiculo.delete({
         where: {
             id: Number(req.params.id)
         }

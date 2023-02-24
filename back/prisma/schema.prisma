@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -25,36 +24,32 @@ model Usuarios {
   cargos   Cargos @relation(fields: [id_cargo], references: [id_cargo])
 }
 
-model Frota {
-  id_frota   Int   @id @default(autoincrement())
-  manutencao Manutencao[]
-  operacoes  Operacoes[]
-  motoristas Motoristas[]
-  veiculos Veiculos[]
-}
-
 model Manutencao {
-  id_manu  Int   @id @default(autoincrement())
-  id_frota Int
-  frota    Frota @relation(fields: [id_frota], references: [id_frota])
+  id_manu     Int      @id @default(autoincrement())
+  id_veiculos Int
+  veiculos    Veiculos @relation(fields: [id_veiculos], references: [id_veiculos])
 }
 
 model Operacoes {
-  id_opera Int   @id @default(autoincrement())
-  id_frota Int
-  frota    Frota @relation(fields: [id_frota], references: [id_frota])
+  id_opera    Int      @id @default(autoincrement())
+  id_veiculos Int
+  veiculos    Veiculos @relation(fields: [id_veiculos], references: [id_veiculos])
 }
 
 model Motoristas {
-  id_motor   Int    @id @default(autoincrement())
-  nome_motor String
-  id_frota   Int
-  frota      Frota  @relation(fields: [id_frota], references: [id_frota])
+  id_motor    Int      @id @default(autoincrement())
+  nome_motor  String
+  id_veiculos Int
+  veiculos    Veiculos @relation(fields: [id_veiculos], references: [id_veiculos])
 }
 
 model Veiculos {
-  id_veiculos Int @id @default(autoincrement())
+  id_veiculos   Int          @id @default(autoincrement())
   nome_veiculos String
-  id_frota   Int
-  frota      Frota  @relation(fields: [id_frota], references: [id_frota])
+  id_veiculo    Int
+  cor           String
+  modelo        String
+  manutencao    Manutencao[]
+  operacoes     Operacoes[]
+  motoristas    Motoristas[]
 }

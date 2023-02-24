@@ -7,30 +7,30 @@ const test = async (req, res) => {
 }
 
 const create = async (req, res) => {
-    const usuario = await prisma.usuario.create({
+    const motora = await prisma.motora.create({
         data: req.body
     })
     res.status(201).end();
 }
 
 const readAll = async (req, res) => {
-    const usuario = await prisma.usuario.findMany({
+    const motora = await prisma.motora.findMany({
     })
-    res.json(usuario).end();
+    res.json(motora).end();
 }
 
 const update = async (req, res) => {
-    const usuario = await prisma.usuario.update({
+    const motora = await prisma.motora.update({
         where: {
             id: Number(req.params.id)
         },
         data: req.body
     })
-    res.status(202).json(usuario).end();
+    res.status(202).json(motora).end();
 }
 
 const del = async (req, res) => {
-    const usuario = await prisma.usuario.delete({
+    const motora = await prisma.motora.delete({
         where: {
             id: Number(req.params.id)
         }

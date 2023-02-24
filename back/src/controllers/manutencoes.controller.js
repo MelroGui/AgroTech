@@ -7,30 +7,30 @@ const test = async (req, res) => {
 }
 
 const create = async (req, res) => {
-    const cargo = await prisma.cargo.create({
+    const manutencao = await prisma.manutencao.create({
         data: req.body
     })
     res.status(201).end();
 }
 
 const readAll = async (req, res) => {
-    const cargo = await prisma.cargo.findMany({
+    const manutencao = await prisma.manutencao.findMany({
     })
-    res.json(cargo).end();
+    res.json(manutencao).end();
 }
 
 const update = async (req, res) => {
-    const cargo = await prisma.cargo.update({
+    const manutencao = await prisma.manutencao.update({
         where: {
             id: Number(req.params.id)
         },
         data: req.body
     })
-    res.status(202).json(cargo).end();
+    res.status(202).json(manutencao).end();
 }
 
 const del = async (req, res) => {
-    const cargo = await prisma.cargo.delete({
+    const manutencao = await prisma.manutencao.delete({
         where: {
             id: Number(req.params.id)
         }
