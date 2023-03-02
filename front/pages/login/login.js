@@ -1,18 +1,30 @@
-const form = document.querySelector('.login-form');
-const usernameInput = form.querySelector('input[type="text"]');
-const passwordInput = form.querySelector('input[type="password"]');
-
-form.addEventListener('submit', function(e) {
-	e.preventDefault();
-	const username = usernameInput.value;
-	const password = passwordInput.value;
-
-	if (username === '' || password === '') {
-		alert('Please fill in all fields');
-	} else {
-
-        
-		alert(`Welcome, ${username}!`);
-		form.reset();
-	}
-});
+function login() {
+    let credenciais = {
+        "email": document.querySelector(".email").value,
+        "senha": document.querySelector(".senha").value,
+    }
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    };
+    options.body = JSON.stringify(credenciais);
+    fetch("http://localhost:5000/usuarios/login", options)
+        .then(resp => resp.status)
+        .then(resp => {
+            if (resp == 200) {
+                localStorage.setItem("info", JSON.stringify(
+                    {
+                        "id_user": resp.id_user, 
+                        "id_role": resp.id_role,
+                        "nome_user":resp.nome_user, 
+                        "email":resp.email, 
+                        "token":resp.token
+                    }
+                    ));
+                window.location.href = "../../pages/home/home.html";
+            }
+            else {
+                alert("Email ou Senha Incorretas")
+            }
+        })
+};
