@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroTech</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js" defer></script>
+
+</head>
+
+<body onload=" carregarOptionsAlocacao(), carregarOptionsManutencoes()">
+    <header>
+    </header>
+
+    <div class="main-container">
+        <div class="navcontainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <div class="nav-option option2" onclick="carregarAlocacoes()">
+                        <h3> Alocações</h3>
+                    </div>
+
+                    <div class="nav-option option3" onclick="carregarManutencoes()">
+                        <h3> Manutenções</h3>
+                    </div>
+
+                    <div class="nav-option option4" onclick="carregarMotoristas()">
+                        <h3> Motoristas</h3>
+                    </div>
+
+                    <div class="nav-option option5" onclick="carregarVeiculos()">
+                        <h3> Veículos</h3>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="main-home pag">
+            <div class="report-container">
+
+                <table class="ver-alocacoes-recentes">
+
+                    <thead>
+                        <tr style="color: white;">
+                            <th>ID</th>
+                            <th>MOTORISTA</th>
+                            <th>PLACA VEÍCULO</th>
+                            <th>DESCRIÇÃO</th>
+
+                        </tr>
+                        <tr class="informacoes-alocacao-painel modelo">
+                            <td id="id-alocacao-painel"></td>
+                            <td id="id-motorista-painel"></td>
+                            <td id="id-veiculo-painel"></td>
+                            <td id="descricao-painel"></td>
+
+                        </tr>
+                    </thead>
+
+                    <tbody class="tbody-alocacoes-painel">
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="height:500px; width:500px; margin-top: 100px;">
+                <canvas id="meuGrafico"></canvas>
+            </div>
+        </div>
+
+        <div class="main-alocacoes modelo pag">
+            <form>
+                <select id="select-motorista">
+                    <option id="option-motorista-modelo" class="modelo" value=""></option>
+                </select>
+
+                <select id="select-veiculo">
+                    <option id="option-veiculo-modelo" class="modelo" value=""></option>
+                </select>
+
+                <input id="desc-alocacao" placeholder="Digite a descrição" type="text">
+                <button onclick="cadastrarAlocacao()">Adicionar Alocações</button>
+            </form>
+            <table class="ver-alocacoes">
+
+                <thead>
+                    <tr>
+                        <th>Nº ALOCAÇÃO</th>
+                        <th>MOTORISTA</th>
+                        <th>PLACA VEÍCULO</th>
+                        <th>DESCRIÇÃO</th>
+                    </tr>
+                    <tr class="informacoes-alocacao modelo">
+                        <td id="id-alocacao"></td>
+                        <td class="modelo" id="id-motorista"></td>
+                        <td class="modelo" id="id-veiculo"></td>
+                        <td id="motorista"></td>
+                        <td id="veiculo"></td>
+                        <td id="data-saida"></td>
+                        <td id="data-retorno"></td>
+                        <td><input id="descricao-alocacao" disabled></td>
+                        <td><button id="editar" onclick="editarAlocacao(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="finalizar"
+                                onclick="finalizarAlocacao(this.parentNode.parentNode)">Finalizar</button></td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarAlocacao(this.parentNode.parentNode)">Salvar</button></td>
+                    </tr>
+                </thead>
+
+                <tbody class="tbody-alocacoes">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main-manutencoes modelo pag">
+            <form>
+                <select id="select-placa-manutencao">
+                    <option id="option-veiculo-manutencao-modelo" value=""></option>
+                </select>
+                <input id="custo-manutencao-input" placeholder="Digite o custo" type="number">
+                <input id="descricao-manutencao-input" placeholder="Digite a descrição" type="text">
+                <button onclick="cadastrarManutencoes()">Adicionar Manutenção</button>
+            </form>
+            <table class="ver-manutencoes">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>PLACA</th>
+                        <th>DATA INÍCIO</th>
+                        <th>DATA FIM</th>
+                        <th>CUSTO</th>
+                        <th>DESCRIÇÃO</th>
+
+                    </tr>
+                    <tr class="informacoes-manutencao modelo">
+                        <td id="id-manutencao"></td>
+                        <td id="id-veiculo" class="modelo"></td>
+                        <td id="placa-veiculo"></td>
+                        <td><input id="custo-manutencao" disabled></input></td>
+                        <td><input id="descricao-manutencao" disabled></input></td>
+                        <td><button id="editar" onclick="editarManutencao(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="finalizar" onclick="finalizarManutencao(this.parentNode.parentNode)">Finalizar
+                                Manutenção</button></td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarManutencao(this.parentNode.parentNode)">Salvar</button></td>
+                    </tr>
+                </thead>
+
+                <tbody class="tbody-manutencoes">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main-motoristas modelo pag">
+            <form>
+                <input id="nome-motorista-input" placeholder="Digite o nome do motorista" type="text">
+                <input id="cpf-motorista-input" placeholder="Digite o CPF do motorista" type="text">
+                <input id="cnh-motorista-input" placeholder="Digite o nº da CNH do motorista" type="text">
+                <button onclick="cadastrarMotorista()">Adicionar Motorista</button>
+            </form>
+            <table class="ver-motoristas">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>CPF</th>
+                        <th>CNH</th>
+                    </tr>
+                    <tr class="informacoes-motorista modelo">
+                        <td id="id-motorista"></td>
+                        <td><input id="nome-motorista" disabled></td>
+                        <td id="cpf-motorista"></td>
+                        <td id="cnh-motorista"></td>
+                        <td><button id="editar" onclick="editarMotorista(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarMotorista(this.parentNode.parentNode)">Salvar</button></td>
+                    </tr>
+                </thead>
+
+                <tbody class="tbody-motoristas">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main-veiculos modelo pag">
+            <form>
+                <input id="placa-veiculo-input" placeholder="Digite a placa do veículo" type="text">
+                <input id="modelo-veiculo-input" placeholder="Digite o modelo do veículo" type="text">
+                <input id="marca-veiculo-input" placeholder="Digite a marca do veículo" type="text">
+                <input id="tipo-veiculo-input" placeholder="Digite o tipo do veículo" type="text">
+                <button onclick="cadastrarVeiculo()">Adicionar Veículo</button>
+            </form>
+            <table class="ver-veiculos">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>PLACA</th>
+                        <th>MODELO</th>
+                        <th>MARCA</th>
+                        <th>TIPO</th>
+                        <th>DISPONIBILIDADE</th>
+                    </tr>
+                    <tr class="informacoes-veiculo modelo">
+                        <td id="id-veiculo"></td>
+                        <td id="placa-veiculo"></td>
+                        <td><input id="modelo-veiculo" disabled></td>
+                        <td><input id="marca-veiculo" disabled></td>
+                        <td><input id="tipo-veiculo" disabled></td>
+                        <td id="disponivel-veiculo"></td>
+                        <td><button id="editar" onclick="editarVeiculo(this.parentNode.parentNode)">Editar</button>
+                        </td>
+                        <td><button id="salvar" class="modelo"
+                                onclick="salvarVeiculo(this.parentNode.parentNode)">Salvar</button></td>
+
+                    </tr>
+                </thead>
+
+                <tbody class="tbody-veiculos">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
